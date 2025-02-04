@@ -45,8 +45,6 @@ public class Homework17 extends BaseTest {
         ));
         addToButton.click();
 
-        // Create a unique playlist name
-        String playlistName = "Test";
 
 
             WebElement choosePlaylist = wait.until(ExpectedConditions.elementToBeClickable(
