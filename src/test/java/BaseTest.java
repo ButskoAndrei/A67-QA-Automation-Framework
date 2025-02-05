@@ -21,4 +21,38 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
     }
 
+    protected WebDriver driver;
+
+    @BeforeMethod
+    public void setUp() {
+        // Initialize the ChromeDriver
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+    }
+
+    // Helper method for login
+    protected void login(String username, String password) {
+        driver.get("https://qa.koel.app/");
+
+
+        WebElement emailInput = driver.findElement(By.cssSelector("input[type='email']"));
+        emailInput.sendKeys(username);
+
+        WebElement passwordInput = driver.findElement(By.cssSelector("input[type='password']"));
+        passwordInput.sendKeys(password);
+
+        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+        loginButton.click();
+
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
 }
