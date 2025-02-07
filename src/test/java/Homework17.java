@@ -18,7 +18,7 @@ public class Homework17 extends BaseTest {
     @Test
     public void addSongToPlaylist() {
         // Login credentials (replace with your actual credentials)
-
+        String expectedMessage = "Added 1 song into \"Test 1\" ";
         String username = "andrei.butsko@testpro.io";
         String password = "SignZ1ex";
 
@@ -58,7 +58,7 @@ public class Homework17 extends BaseTest {
                 By.cssSelector(".notification-content")
         ));
 
-        String expectedMessage = "Added 1 song into \"Test 1\" ";
+
         String actualMessage = notification.getText();
 
         Assert.assertEquals(actualMessage, expectedMessage,

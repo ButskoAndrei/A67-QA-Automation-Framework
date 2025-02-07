@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import java.time.Duration;
 import java.util.UUID;
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class BaseTest {
 
     @BeforeSuite
+
     static void setupClass() {
 
         WebDriverManager.chromedriver().setup();
@@ -24,18 +26,20 @@ public class BaseTest {
     protected WebDriver driver;
 
     @BeforeMethod
-    public void setUp() {
+    @Parameters({"BaseURL"})
+    public void launchBrowser(String BaseURL) {
         // Initialize the ChromeDriver
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
+
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.get(BaseURL);
     }
 
     // Helper method for login
     protected void login(String username, String password) {
-        driver.get("https://qa.koel.app/");
-
 
         WebElement emailInput = driver.findElement(By.cssSelector("input[type='email']"));
         emailInput.sendKeys(username);
