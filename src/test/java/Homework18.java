@@ -26,7 +26,7 @@ public class Homework18 extends BaseTest{
         clickNextSong();
         clickPlaySong();
         visibleSoundBar();
-
+        Assert.assertTrue(visibleSoundBar());
     }
 
 
@@ -42,7 +42,7 @@ public class Homework18 extends BaseTest{
         Thread.sleep(2000);
     }
 
-    public Boolean visibleSoundBar(){
+    public boolean visibleSoundBar(){
         WebElement bars = driver.findElement(By.xpath("//div[@class='media-info-wrap']//img[@alt='Sound bars']"));
         return bars.isDisplayed();
     }

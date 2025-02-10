@@ -15,14 +15,14 @@ dependencies {
     testImplementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
 }
 
-/*test {
+test {
     useTestNG() {
         suites "src/test/resources/TestNG.xml"
     }
-}*/
+}
 
-test {
+/*test {
     useTestNG() {
         suites "src/test/resources/Config.xml"
     }
-}
+}*/
