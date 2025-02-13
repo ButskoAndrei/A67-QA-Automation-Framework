@@ -4,15 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
-
 import java.time.Duration;
-import java.util.UUID;
+
 
 public class BaseTest {
 
@@ -25,6 +25,7 @@ public class BaseTest {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
+
 
     @BeforeMethod
     @Parameters({"BaseURL"})
@@ -54,6 +55,11 @@ public class BaseTest {
         WebElement loginButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[type='submit']")));
         loginButton.click();
 
+    }
+
+    public String getNotificationMsg(){
+        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.success.show")));
+        return notification.getText();
     }
 
     @AfterMethod
