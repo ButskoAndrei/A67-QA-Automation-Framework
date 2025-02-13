@@ -24,6 +24,7 @@ public class BaseTest {
     }
 
     protected WebDriver driver;
+    protected WebDriverWait wait;
 
     @BeforeMethod
     @Parameters({"BaseURL"})
@@ -33,21 +34,24 @@ public class BaseTest {
         options.addArguments("--remote-allow-origins=*");
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get(BaseURL);
     }
 
     // Helper method for login
     protected void login(String username, String password) {
 
-        WebElement emailInput = driver.findElement(By.cssSelector("input[type='email']"));
+        WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='email']")));
+        emailInput.clear();
         emailInput.sendKeys(username);
 
-        WebElement passwordInput = driver.findElement(By.cssSelector("input[type='password']"));
+        WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='password']")));
+        passwordInput.clear();
         passwordInput.sendKeys(password);
 
-        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+        WebElement loginButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[type='submit']")));
         loginButton.click();
 
     }
