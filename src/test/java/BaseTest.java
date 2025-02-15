@@ -25,6 +25,7 @@ public class BaseTest {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
+    protected Actions actions;
 
 
     @BeforeMethod
@@ -39,6 +40,7 @@ public class BaseTest {
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get(BaseURL);
+        actions = new Actions(driver);
     }
 
     // Helper method for login
