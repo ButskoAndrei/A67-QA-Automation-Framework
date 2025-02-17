@@ -1,10 +1,10 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 public class Homework21 extends BaseTest{
 
@@ -14,32 +14,34 @@ public class Homework21 extends BaseTest{
     @Test
     public void renamePlaylist() {
 
-
+        LoginPage loginPage = new LoginPage(driver);
         String updatedPlaylistMsg = "Updated playlist \"Test 1.\"";
 
-        String username = "andrei.butsko@testpro.io";
-        String password = "SignZ1ex";
 
-        login(username,password);
-        clickAddBtn();
+        loginPage.provideEmail("andrei.butsko@testpro.io");
+        loginPage.providePassword("SignZ1ex");
+        loginPage.clickSubmit();
+        clickAddNewPlaylist();
         clickNewPlaylistBtn();
-        createNewPlaylist();
+        setNewPlaylistName();
         doubleClickPlaylist();
         enterNewPlaylistName();
         Assert.assertEquals(getNotificationMsg(),updatedPlaylistMsg);
     }
 
-    public void clickAddBtn() {
-        WebElement addBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//nav[@id='sidebar']//i[@title='Create a new playlist']")));
-        addBtn.click();
-    }
 
-    public void clickNewPlaylistBtn() {
-        WebElement newPlaylistBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("li[data-testid='playlist-context-menu-create-simple']")));
+    public void clickAddNewPlaylist() {
+        WebElement newPlaylistBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("i[data-testid='sidebar-create-playlist-btn']")));
         newPlaylistBtn.click();
+
     }
 
-    public void createNewPlaylist(){
+    public void clickNewPlaylistBtn(){
+        WebElement playlistNew = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("li[data-testid = 'playlist-context-menu-create-simple']")));
+        playlistNew.click();
+    }
+
+    public void setNewPlaylistName(){
         WebElement inputNewPlaylistField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@name='create-simple-playlist-form']//input[@name='name']")));
         inputNewPlaylistField.sendKeys(playlistName);
         inputNewPlaylistField.sendKeys(Keys.ENTER);
@@ -61,4 +63,5 @@ public class Homework21 extends BaseTest{
         inputField.sendKeys(newPlaylistName);
         inputField.sendKeys(Keys.ENTER);
     }
+
 }
