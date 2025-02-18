@@ -11,6 +11,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
+import pages.LoginPage;
+
 import java.time.Duration;
 
 
@@ -46,16 +48,11 @@ public class BaseTest {
     // Helper method for login
     protected void login(String username, String password) {
 
-        WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='email']")));
-        emailInput.clear();
-        emailInput.sendKeys(username);
+        LoginPage loginPage = new LoginPage(driver);
 
-        WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type='password']")));
-        passwordInput.clear();
-        passwordInput.sendKeys(password);
-
-        WebElement loginButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[type='submit']")));
-        loginButton.click();
+        loginPage.provideEmail(username);
+        loginPage.providePassword(password);
+        loginPage.clickSubmit();
 
     }
 
