@@ -13,6 +13,7 @@ public class LoginPage extends BasePage{
     By emailField = By.cssSelector("input[type='email']");
     By passwordField = By.cssSelector("input[type='password']");
     By submitBtn = By.cssSelector("button[type='submit']");
+
     public void provideEmail(String email){
         findElement(emailField).sendKeys(email);
     }
@@ -21,5 +22,11 @@ public class LoginPage extends BasePage{
     }
     public void clickSubmit(){
         findElement(submitBtn).click();
+    }
+
+    public void login(){
+        provideEmail("andrei.butsko@testpro.io");
+        providePassword("SignZ1ex");
+        clickSubmit();
     }
 }

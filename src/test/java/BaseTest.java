@@ -50,16 +50,11 @@ public class BaseTest {
 
         LoginPage loginPage = new LoginPage(driver);
 
-        loginPage.provideEmail(username);
-        loginPage.providePassword(password);
-        loginPage.clickSubmit();
+        loginPage.login();
 
     }
 
-    public String getNotificationMsg(){
-        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.success.show")));
-        return notification.getText();
-    }
+
 
     @AfterMethod
     public void tearDown() {
