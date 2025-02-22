@@ -17,7 +17,6 @@ public class HomePage extends BasePage{
     public void clickAddNewPlaylist() {
         WebElement newPlaylistBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("i[data-testid='sidebar-create-playlist-btn']")));
         newPlaylistBtn.click();
-
     }
 
     public void clickNewPlaylistBtn(){
