@@ -16,7 +16,6 @@ public class Homework21 extends BaseTest{
         HomePage homepage = new HomePage(driver);
         String updatedPlaylistMsg = "Updated playlist \"Test 1.\"";
 
-
         loginPage.provideEmail("andrei.butsko@testpro.io").providePassword("SignZ1ex").clickSubmit();
         homepage.clickAddNewPlaylist();
         homepage.clickNewPlaylistBtn();
