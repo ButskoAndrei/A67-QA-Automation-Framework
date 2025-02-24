@@ -29,8 +29,8 @@ public class HomePage extends BasePage{
         inputNewPlaylistField.sendKeys(playlistName);
         inputNewPlaylistField.sendKeys(Keys.ENTER);
 
-        By notificationLocator = By.xpath("//div[contains(text(), 'Created playlist')]");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(notificationLocator));
+        //By notificationLocator = By.xpath("//div[contains(text(), 'Created playlist')]");
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(notificationLocator));
         //wait.until(ExpectedConditions.invisibilityOfElementLocated(notificationLocator));
     }
 

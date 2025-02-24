@@ -4,6 +4,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.HomePage;
 
 
 public class Homework20 extends BaseTest{
@@ -17,11 +18,13 @@ public class Homework20 extends BaseTest{
         String username = "andrei.butsko@testpro.io";
         String password = "SignZ1ex";
 
+        HomePage homepage = new HomePage(driver);
+
         login(username,password);
         clickChoosePlaylist();
         clickDeleteBtn();
         //clickOkButton();
-        Assert.assertEquals(getNotificationMsg(),expectedPlaylistDeleteMessage);
+        Assert.assertEquals(homepage.getNotificationMsg(),expectedPlaylistDeleteMessage);
 
     }
 
