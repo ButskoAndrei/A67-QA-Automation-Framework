@@ -7,57 +7,37 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage{
-
     public HomePage(WebDriver givenDriver) {
-
         super(givenDriver);
     }
     By userAvatarIcon = By.cssSelector("img.avatar");
-    By newPlaylistBtn = By.cssSelector("i[data-testid='sidebar-create-playlist-btn']");
-    By newPlaylist = By.cssSelector("li[data-testid = 'playlist-context-menu-create-simple']");
-    By firstPlaylist = By.cssSelector(".playlist:nth-child(3)");
-    By playlistNameField = By.xpath("//form[@name='create-simple-playlist-form']//input[@name='name']");
-    By inputField = By.cssSelector("input[name='name']");
-    By notificationLocator = By.xpath("//div[contains(text(), 'Created playlist')]");
-    By renamePlaylistSuccessMsg = By.cssSelector("div.success.show");
-
     public WebElement getUserAvatar(){
         return findElement(userAvatarIcon);
     }
-
     public void clickAddNewPlaylist() {
-        findElement(newPlaylistBtn);
-        click(newPlaylistBtn);
-
+        WebElement newPlaylistBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("i[data-testid='sidebar-create-playlist-btn']")));
+        newPlaylistBtn.click();
     }
 
     public void clickNewPlaylistBtn(){
-        findElement(newPlaylist);
-        click(newPlaylist);
+        WebElement playlistNew = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("li[data-testid = 'playlist-context-menu-create-simple']")));
+        playlistNew.click();
     }
 
-    public void setNewPlaylistName(String newPlaylistName){
-        findElement(playlistNameField).sendKeys(newPlaylistName);
-        findElement(playlistNameField).sendKeys(Keys.ENTER);
+    public void setPlaylistName(String playlistName){
+        WebElement inputNewPlaylistField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@name='create-simple-playlist-form']//input[@name='name']")));
+        inputNewPlaylistField.sendKeys(playlistName);
+        inputNewPlaylistField.sendKeys(Keys.ENTER);
 
-        findElement(notificationLocator);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(notificationLocator));
+        //By notificationLocator = By.xpath("//div[contains(text(), 'Created playlist')]");
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(notificationLocator));
+        //wait.until(ExpectedConditions.invisibilityOfElementLocated(notificationLocator));
     }
 
-    public void doubleClickPlaylist() {
-
-        doubleClick(firstPlaylist);
-    }
-
-    public void enterNewPlaylistName(String playlistName){
-
-        findElement(inputField).sendKeys(Keys.chord(Keys.CONTROL,"A",Keys.BACK_SPACE));
-        findElement(inputField).sendKeys(playlistName);
-        findElement(inputField).sendKeys(Keys.ENTER);
-    }
-
-    public String getNotificationMsg(){
-
-        return findElement(renamePlaylistSuccessMsg).getText();
+    public void enterNewPlaylistName(String newPlaylistName){
+        WebElement inputField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[name='name']")));
+        inputField.sendKeys(Keys.chord(Keys.CONTROL,"A",Keys.BACK_SPACE));
+        inputField.sendKeys(newPlaylistName);
+        inputField.sendKeys(Keys.ENTER);
     }
 }
