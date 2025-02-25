@@ -23,6 +23,10 @@ public class Homework21 extends BaseTest{
         Thread.sleep(6000);
         homepage.doubleClick(By.cssSelector(".playlist:nth-child(3)"));
         homepage.enterNewPlaylistName(newPlaylistName);
-        Assert.assertEquals(getNotificationMsg(),updatedPlaylistMsg);
+        Assert.assertEquals(homepage.getNotificationMsg(),updatedPlaylistMsg);
     }
+
+
+
+
 }

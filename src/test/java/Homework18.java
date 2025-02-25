@@ -1,15 +1,9 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 
 public class Homework18 extends BaseTest{
@@ -19,9 +13,9 @@ public class Homework18 extends BaseTest{
 
         String username = "andrei.butsko@testpro.io";
         String password = "SignZ1ex";
+        LoginPage loginPage = new LoginPage(driver);
 
-
-        login(username,password);
+        loginPage.provideEmail(username).providePassword(password).clickSubmit();
         Thread.sleep(2000);
         clickNextSong();
         clickPlaySong();

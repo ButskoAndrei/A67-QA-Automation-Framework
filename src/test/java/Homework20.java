@@ -5,6 +5,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
+import pages.LoginPage;
 
 
 public class Homework20 extends BaseTest{
@@ -20,7 +21,9 @@ public class Homework20 extends BaseTest{
 
         HomePage homepage = new HomePage(driver);
 
-        login(username,password);
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.provideEmail(username).providePassword(password).clickSubmit();
         clickChoosePlaylist();
         clickDeleteBtn();
         //clickOkButton();

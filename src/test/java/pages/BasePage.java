@@ -31,4 +31,8 @@ public class BasePage {
         actions.doubleClick(findElement(locator)).perform();
     }
 
+    public  String getNotificationMsg() {
+        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.success.show")));
+        return notification.getText();
+    }
 }

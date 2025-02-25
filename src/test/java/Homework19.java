@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 
 public class Homework19 extends BaseTest{
@@ -15,7 +16,9 @@ public class Homework19 extends BaseTest{
         String username = "andrei.butsko@testpro.io";
         String password = "SignZ1ex";
 
-        login(username,password);
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.provideEmail(username).providePassword(password).clickSubmit();
         clickChoosePlaylist();
         clickDeleteBtn();
         //clickOkButton();
