@@ -12,8 +12,8 @@ public class Homework21 extends BaseTest{
     @Test
     public void renamePlaylist() throws InterruptedException {
 
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homepage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homepage = new HomePage(getDriver());
         String updatedPlaylistMsg = "Updated playlist \"Test 1.\"";
 
         loginPage.provideEmail("andrei.butsko@testpro.io").providePassword("SignZ1ex").clickSubmit();
@@ -25,8 +25,4 @@ public class Homework21 extends BaseTest{
         homepage.enterNewPlaylistName(newPlaylistName);
         Assert.assertEquals(homepage.getNotificationMsg(),updatedPlaylistMsg);
     }
-
-
-
-
 }

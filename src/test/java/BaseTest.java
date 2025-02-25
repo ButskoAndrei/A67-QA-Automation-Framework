@@ -14,7 +14,9 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.time.Duration;
+import java.util.HashMap;
 
 
 public class BaseTest {
@@ -25,13 +27,28 @@ public class BaseTest {
 
         WebDriverManager.chromedriver().setup();
     }
+    public static WebDriver getDriver() {
+        return threadDriver.get();
+    }
 
     protected static  WebDriver driver;
+    public String url = null;
     protected static  WebDriverWait wait;
     protected static Actions actions;
+    private static final ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
 
     @BeforeMethod
     @Parameters({"BaseURL"})
+    public void setUpBrowser(String BaseURL) throws MalformedURLException {
+        threadDriver.set(pickBrowser(System.getProperty("browser")));
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        url = BaseURL;
+        driver.get(url);
+    }
+
+
+
     public void launchBrowser(String BaseURL) throws MalformedURLException {
 
         driver = pickBrowser(System.getProperty("browser"));
@@ -44,12 +61,11 @@ public class BaseTest {
 
     @AfterMethod
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        threadDriver.get().close();
+        threadDriver.remove();
     }
 
-    public static WebDriver pickBrowser(String browser) throws MalformedURLException {
+    public  WebDriver pickBrowser(String browser) throws MalformedURLException {
         String gridUrl = "http://192.168.1.174:4444";
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         switch (browser){
@@ -69,6 +85,8 @@ public class BaseTest {
                 desiredCapabilities.setBrowserName("chrome");
                 driver = new RemoteWebDriver(URI.create(gridUrl).toURL(), desiredCapabilities);
                 return driver;
+            case "cloud":
+                return lambdaTest();
             default:
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
@@ -77,6 +95,26 @@ public class BaseTest {
                 driver = new ChromeDriver(chromeOptions);
                 return driver;
         }
+    }
+
+    public WebDriver lambdaTest() throws MalformedURLException {
+
+        String hubERL = "http://hub.lambdatest.com/wd/hub";
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", "chrome");
+        capabilities.setCapability("browserVersion", "133.0");
+        HashMap<String, Object> ltOptions = new HashMap<>();
+        ltOptions.put("user", "andreibutsko");
+        ltOptions.put("accessKey", "LT_mngFcmbYfJDLR8QvvyYxrQa1gUchIxXI3fraIKJ1UeZklBL");
+        ltOptions.put("built", "Selenium 4");
+        ltOptions.put("name", this.getClass().getName());
+        ltOptions.put("platformName", "Windows 10");
+        ltOptions.put("seCdp", true);
+        ltOptions.put("selenium_version", "4.0.0");
+        capabilities.setCapability("LT:Options", ltOptions);
+
+        return new RemoteWebDriver(new URL(hubERL), capabilities);
     }
 
 }
