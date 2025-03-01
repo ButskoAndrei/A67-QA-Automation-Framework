@@ -68,8 +68,15 @@ public class BaseTest {
     public  WebDriver pickBrowser(String browser) throws MalformedURLException {
         String gridUrl = "http://192.168.1.174:4444";
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        switch (browser){
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--remote-allow-origins=*");
+        chromeOptions.addArguments("==disable-notifications");
 
+        switch (browser){
+            case "chrome":
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                return driver;
             case "MicrosoftEdge":
                 WebDriverManager.edgedriver().setup();
                 EdgeOptions edgeOptions = new EdgeOptions();
@@ -89,9 +96,6 @@ public class BaseTest {
                 return lambdaTest();
             default:
                 WebDriverManager.chromedriver().setup();
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--remote-allow-origins=*");
-                chromeOptions.addArguments("==disable-notifications");
                 driver = new ChromeDriver(chromeOptions);
                 return driver;
         }
