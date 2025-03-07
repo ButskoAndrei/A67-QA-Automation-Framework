@@ -2,6 +2,7 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage{
 
@@ -18,7 +19,10 @@ public class LoginPage extends BasePage{
 
     public LoginPage provideEmail(String email){
 
+        wait.until(ExpectedConditions.visibilityOf(emailField));
+        wait.until(ExpectedConditions.elementToBeClickable(emailField));
         emailField.click();
+        emailField.clear();
         emailField.sendKeys(email);
         return this;
     }
@@ -30,7 +34,12 @@ public class LoginPage extends BasePage{
     }
     public LoginPage clickSubmit(){
 
+        wait.until(ExpectedConditions.elementToBeClickable(submitBtn));
         submitBtn.click();
         return this;
+    }
+
+    public LoginPage login(String email, String password) {
+        return provideEmail(email).providePassword(password).clickSubmit();
     }
 }
