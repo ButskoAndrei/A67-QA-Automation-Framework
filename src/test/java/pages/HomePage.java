@@ -7,14 +7,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage{
-    public HomePage(WebDriver givenDriver) {
+
+    public HomePage(WebDriver givenDriver)
+    {
         super(givenDriver);
     }
+
     By userAvatarIcon = By.cssSelector("img.avatar");
     public WebElement getUserAvatar(){
         return findElement(userAvatarIcon);
     }
     public void clickAddNewPlaylist() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("img.avatar")));
         WebElement newPlaylistBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("i[data-testid='sidebar-create-playlist-btn']")));
         newPlaylistBtn.click();
     }

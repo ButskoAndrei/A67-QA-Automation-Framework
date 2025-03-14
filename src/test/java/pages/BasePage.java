@@ -20,9 +20,14 @@ public class BasePage {
         PageFactory.initElements(driver,this);
         actions = new Actions(driver);
     }
+    public WebElement waitUntilClickable(By element){
+        return new WebDriverWait(driver, Duration.ofSeconds(4)).until(ExpectedConditions.elementToBeClickable(element));
+    }
+
     public WebElement findElement(By locator){
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+
     public void click(By locator){
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).click();

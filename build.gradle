@@ -17,11 +17,18 @@ dependencies {
     implementation 'io.cucumber:cucumber-core:7.9.0'
     implementation 'io.cucumber:cucumber-java:7.9.0'
     implementation 'io.cucumber:gherkin:25.0.2'
+
 }
 
 test {
     useTestNG() {
         suites "src/test/resources/${suite}.xml"
         systemProperty "browser", System.getProperty("browser")
+
+        // Add timeout setting for individual tests
+        maxHeapSize = "1G"
+
+        // Use default listeners for better reporting
+        useDefaultListeners = true
     }
-}
+
