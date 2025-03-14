@@ -55,14 +55,6 @@ public class BaseTest {
             // Maximize window
             driver.manage().window().maximize();
 
-        // Navigate to the application
-        driver.get(baseUrl);
-
-        System.out.println("Browser started successfully with session ID: " +
-                ((ChromeDriver)driver).getSessionId());
-    } catch (Exception e) {
-            System.out.println("Exception during driver setup: " + e.getMessage());
-            throw e;
         }
     }
 

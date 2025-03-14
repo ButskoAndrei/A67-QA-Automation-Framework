@@ -18,13 +18,11 @@ dependencies {
     implementation 'io.cucumber:cucumber-java:7.9.0'
     implementation 'io.cucumber:gherkin:25.0.2'
 
-    // Add SLF4J implementation to fix logging warnings
-    implementation 'org.slf4j:slf4j-simple:2.0.5'
 }
 
 test {
     useTestNG() {
-        suites "src/test/resources/TestNG.xml"
+        suites "src/test/resources/${suite}.xml"
         systemProperty "browser", System.getProperty("browser")
 
         // Add timeout setting for individual tests
@@ -34,19 +32,3 @@ test {
         useDefaultListeners = true
     }
 
-    // We need to handle parallel execution via TestNG.xml, not here
-
-    // Increase test timeout
-    maxParallelForks = 1
-
-    // Show test output on console
-    testLogging {
-        events "passed", "skipped", "failed"
-        showStandardStreams = true
-    }
-
-    // Set system properties for test execution
-    systemProperties = [
-            'org.uncommons.reportng.escape-output': 'false'
-    ]
-}
